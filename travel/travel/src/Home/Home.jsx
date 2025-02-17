@@ -8,6 +8,7 @@ import Image5 from "../assets/travel5.jpeg";
 import Image6 from "../assets/travel6.jpeg";
 import Image7 from "../assets/travel7.jpeg";
 import travelVideo from "../assets/video.mp4";
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 const Home = () => {
   return (
