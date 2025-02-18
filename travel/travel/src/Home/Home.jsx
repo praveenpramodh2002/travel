@@ -1,5 +1,6 @@
 import React from 'react';
 import { Search, MapPin, ArrowRight } from 'lucide-react';
+import { Compass, Hotel, Plane, Camera, Map, Utensils } from 'lucide-react';
 import Image1 from "../assets/travel1.jpeg";
 import Image2 from "../assets/travel2.jpeg";
 import Image3 from "../assets/travel3.jpeg";
@@ -9,6 +10,8 @@ import Image6 from "../assets/travel6.jpeg";
 import Image7 from "../assets/travel7.jpeg";
 import travelVideo from "../assets/video.mp4";
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
+import { motion } from 'framer-motion';
 
 const Home = () => {
   return (
@@ -25,6 +28,7 @@ const Home = () => {
         <button className="bg-blue-600 text-white px-4 py-2 rounded-lg">Sign up</button>
       </nav>
 
+      {/* Hero Section with Video */}
       <div className="relative">
         <div className="h-[400px] min-h-[400px] rounded-lg mx-4 my-6 overflow-hidden relative">
           <video 
@@ -33,7 +37,6 @@ const Home = () => {
             muted 
             className="absolute top-0 left-0 w-full h-full object-cover"
           >
-            {/* Multiple sources for better compatibility */}
             <source src={travelVideo} type="video/mp4" />
             <source src={travelVideo} type="video/webm" />
             <source src={travelVideo} type="video/ogg" />
@@ -68,45 +71,44 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Sweet Memories Section */}
-<div className="max-w-7xl mx-auto px-4 my-12">
-  <h2 className="text-2xl font-bold mb-6">Get People to the Best Places</h2>
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-    {/* First Card */}
-    <div className="space-y-6">
-      <div className="bg-blue-50 p-6 rounded-lg flex items-center">
-        <div className="mr-6">
-          <img src={Image5} alt="Mountain landscape" className="w-32 h-32 rounded-lg" />
-        </div>
-        <div>
-          <h3 className="font-bold mb-2">A Journey to the Peaks</h3>
-          <p className="text-gray-600">Explore breathtaking mountains and pristine landscapes for those seeking adventure.</p>
+      {/* Best Places Section */}
+      <div className="max-w-7xl mx-auto px-4 my-12">
+        <h2 className="text-2xl font-bold mb-6">Get People to the Best Places</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* First Card */}
+          <div className="space-y-6">
+            <div className="bg-blue-50 p-6 rounded-lg flex items-center">
+              <div className="mr-6">
+                <img src={Image5} alt="Mountain landscape" className="w-32 h-32 rounded-lg" />
+              </div>
+              <div>
+                <h3 className="font-bold mb-2">A Journey to the Peaks</h3>
+                <p className="text-gray-600">Explore breathtaking mountains and pristine landscapes for those seeking adventure.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Second Card */}
+          <div className="space-y-6">
+            <div className="bg-green-50 p-6 rounded-lg flex items-center">
+              <div className="mr-6">
+                <img src={Image6} alt="Tropical beach" className="w-32 h-32 rounded-lg" />
+              </div>
+              <div>
+                <h3 className="font-bold mb-2">Relax on a Tropical Beach</h3>
+                <p className="text-gray-600">Indulge in the serenity of tropical beaches, perfect for unwinding and exploring.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Button */}
+          <div className="col-span-2">
+            <button className="bg-blue-600 text-white px-6 py-3 rounded-lg">
+              Discover More
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-
-    {/* Second Card */}
-    <div className="space-y-6">
-      <div className="bg-green-50 p-6 rounded-lg flex items-center">
-        <div className="mr-6">
-          <img src={Image6} alt="Tropical beach" className="w-32 h-32 rounded-lg" />
-        </div>
-        <div>
-          <h3 className="font-bold mb-2">Relax on a Tropical Beach</h3>
-          <p className="text-gray-600">Indulge in the serenity of tropical beaches, perfect for unwinding and exploring.</p>
-        </div>
-      </div>
-    </div>
-
-    {/* Button */}
-    <div className="col-span-2">
-      <button className="bg-blue-600 text-white px-6 py-3 rounded-lg">
-        Discover More
-      </button>
-    </div>
-  </div>
-</div>
-
 
       {/* Sweet Memories Section */}
       <div className="max-w-7xl mx-auto px-4 my-12">
@@ -125,55 +127,120 @@ const Home = () => {
               Tell me more
             </button>
           </div>
-          <div className="relative">
-            <img src={Image5} alt="Mountain landscape" className="w-full rounded-lg" />
+          <div className="grid grid-cols-2 gap-4">
+            <img src={Image5} alt="Mountain landscape" className="w-full h-48 object-cover rounded-lg" />
+            <img src={Image6} alt="Beach sunset" className="w-full h-48 object-cover rounded-lg" />
+            <img src={Image7} alt="Forest trail" className="w-full h-48 object-cover rounded-lg" />
+            <img src={Image4} alt="City skyline" className="w-full h-48 object-cover rounded-lg" />
           </div>
         </div>
       </div>
+{/* Travel Locations Section */}
+<div className="max-w-7xl mx-auto px-4 my-12">
+  <h2 className="text-2xl font-bold mb-6 text-center">Top Travel Locations</h2>
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {[
+      { img: Image1, title: "Santorini, Greece", desc: "Enjoy stunning sunsets, white-washed buildings, and breathtaking sea views." },
+      { img: Image2, title: "Kyoto, Japan", desc: "Experience the serenity of temples, cherry blossoms, and traditional culture." },
+      { img: Image3, title: "Bali, Indonesia", desc: "Immerse yourself in tropical paradise with pristine beaches and vibrant culture." },
+      { img: Image4, title: "Paris, France", desc: "Explore the City of Love, with its iconic Eiffel Tower and charming cafes." },
+      { img: Image5, title: "Maui, Hawaii", desc: "A tropical paradise with breathtaking beaches and volcanic landscapes." },
+      { img: Image6, title: "Dubai, UAE", desc: "A futuristic city known for luxury shopping, ultramodern architecture, and vibrant nightlife." }
+    ].map((location, index) => (
+      <motion.div 
+        key={index} 
+        className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
+        initial={{ opacity: 0, scale: 0.9 }} 
+        animate={{ opacity: 1, scale: 1 }} 
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+        whileHover={{ scale: 1.05 }}
+      >
+        <img src={location.img} alt={location.title} className="w-full h-40 object-cover rounded-lg mb-4" />
+        <h3 className="text-xl font-semibold mb-2">{location.title}</h3>
+        <p className="text-gray-600">{location.desc}</p>
+        <motion.button 
+          className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label={`View details about ${location.title}`}
+        >
+          View Details
+        </motion.button>
+      </motion.div>
+    ))}
+  </div>
+</div>
+      {/* Services Section */}
+      <div className="max-w-7xl mx-auto px-4 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold mb-4">Our Services</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Discover our comprehensive range of travel services designed to make your journey memorable
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div className="flex flex-col items-center text-center">
+              <div className="mb-4 p-3 bg-blue-50 rounded-full">
+                <Plane className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Flight Booking</h3>
+              <p className="text-gray-600">Find the best deals on flights to your dream destinations worldwide.</p>
+            </div>
+          </div>
 
-      {/* Explore More Section */}
-      <div className="max-w-7xl mx-auto px-4 my-12">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">Explore more</h2>
-          <div className="flex space-x-4">
-            <button className="bg-gray-100 px-4 py-2 rounded-lg">Hotels</button>
-            <button className="bg-gray-100 px-4 py-2 rounded-lg">Dining</button>
+          <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div className="flex flex-col items-center text-center">
+              <div className="mb-4 p-3 bg-blue-50 rounded-full">
+                <Hotel className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Hotel Reservations</h3>
+              <p className="text-gray-600">Book comfortable stays at carefully selected hotels and resorts.</p>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div className="flex flex-col items-center text-center">
+              <div className="mb-4 p-3 bg-blue-50 rounded-full">
+                <Compass className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Tour Packages</h3>
+              <p className="text-gray-600">Explore curated tour packages for unforgettable experiences.</p>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div className="flex flex-col items-center text-center">
+              <div className="mb-4 p-3 bg-blue-50 rounded-full">
+                <Camera className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Photography Tours</h3>
+              <p className="text-gray-600">Capture stunning moments with our specialized photography tours.</p>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div className="flex flex-col items-center text-center">
+              <div className="mb-4 p-3 bg-blue-50 rounded-full">
+                <Map className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Adventure Trips</h3>
+              <p className="text-gray-600">Experience thrilling adventures in nature's most beautiful locations.</p>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div className="flex flex-col items-center text-center">
+              <div className="mb-4 p-3 bg-blue-50 rounded-full">
+                <Utensils className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Culinary Tours</h3>
+              <p className="text-gray-600">Taste local cuisines and explore food cultures around the world.</p>
+            </div>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { name: "Amalfi Coast", location: "Italy", price: "$340" },
-            { name: "Taj Mahal", location: "India", price: "$240" },
-            { name: "Cape Refuge", location: "South Africa", price: "$180" }
-          ].map((place, index) => (
-            <div key={index} className="rounded-lg overflow-hidden shadow-lg">
-              <img src={Image2} alt={place.name} className="w-full h-48 object-cover" />
-              <div className="p-4">
-                <h3 className="font-bold">{place.name}</h3>
-                <div className="flex items-center text-gray-600 text-sm">
-                  <MapPin size={16} className="mr-1" />
-                  {place.location}
-                </div>
-                <div className="mt-2 font-bold text-blue-600">{place.price}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Adventure Section */}
-      <div className="max-w-7xl mx-auto px-4 my-12">
-        <h2 className="text-2xl font-bold mb-6">Let's go on an adventure</h2>
-        <div className="flex space-x-4 overflow-x-auto">
-          {['Paris', 'New York', 'Seoul', 'Bali'].map((city, index) => (
-            <div key={index} className="flex-none w-24">
-              <div className="w-24 h-24 bg-blue-600 rounded-lg mb-2">
-                <img src={Image7} alt={city} className="w-full h-full object-cover rounded-lg" />
-              </div>
-              <p className="text-center">{city}</p>
-            </div>
-          ))}
-        </div>
+        
       </div>
 {/* Footer CTA */}
 <div className="max-w-5xl mx-auto px-1 my-12">
@@ -187,79 +254,65 @@ const Home = () => {
   </div>
 </div>
 
-{/* Footer */}
-<footer className="bg-gray-900 text-white py-16">
-  <div className="max-w-full mx-auto px-6 md:px-12"> {/* Changed max-w-7xl to max-w-full and px-4 to px-6 */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12">
+{/* Advanced Footer */}
+<footer className="bg-gray-800 text-white py-12">
+  <div className="max-w-7xl mx-auto px-4">
+    {/* Footer Top Section */}
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
       {/* About Us Section */}
       <div>
-        <h3 className="text-2xl font-bold mb-4">About Us</h3>
-        <p className="text-gray-400 text-sm mb-4">
-          We help you explore the world with ease and comfort. Join our community of travelers and adventure seekers.
+        <h3 className="font-bold text-lg mb-4">About Us</h3>
+        <p className="text-gray-400">
+          We are a travel agency dedicated to providing unforgettable experiences around the world. From beautiful landscapes to adventurous activities, we curate the best destinations for you.
         </p>
-        <div className="space-x-4">
-          <a href="#" className="text-gray-400 hover:text-blue-600 transition"><i className="fab fa-facebook-f"></i></a>
-          <a href="#" className="text-gray-400 hover:text-blue-600 transition"><i className="fab fa-twitter"></i></a>
-          <a href="#" className="text-gray-400 hover:text-blue-600 transition"><i className="fab fa-instagram"></i></a>
-          <a href="#" className="text-gray-400 hover:text-blue-600 transition"><i className="fab fa-youtube"></i></a>
-        </div>
       </div>
 
       {/* Quick Links Section */}
       <div>
-        <h3 className="text-2xl font-bold mb-4">Quick Links</h3>
-        <ul className="space-y-3">
-          <li><a href="#" className="text-gray-400 hover:text-blue-600 transition">Home</a></li>
-          <li><a href="#" className="text-gray-400 hover:text-blue-600 transition">Destinations</a></li>
-          <li><a href="#" className="text-gray-400 hover:text-blue-600 transition">Blog</a></li>
-          <li><a href="#" className="text-gray-400 hover:text-blue-600 transition">Contact</a></li>
+        <h3 className="font-bold text-lg mb-4">Quick Links</h3>
+        <ul className="space-y-2">
+          <li><a href="#" className="text-gray-400 hover:text-blue-500">Home</a></li>
+          <li><a href="#" className="text-gray-400 hover:text-blue-500">Travel</a></li>
+          <li><a href="#" className="text-gray-400 hover:text-blue-500">Explore</a></li>
+          <li><a href="#" className="text-gray-400 hover:text-blue-500">Activity</a></li>
         </ul>
       </div>
+
+      {/* Social Media Section */}
+      <div className="flex space-x-6">
+  <a href="#" className="text-gray-400 hover:text-blue-500"><FaFacebookF /></a>
+  <a href="#" className="text-gray-400 hover:text-blue-500"><FaTwitter /></a>
+  <a href="#" className="text-gray-400 hover:text-blue-500"><FaInstagram /></a>
+  <a href="#" className="text-gray-400 hover:text-blue-500"><FaYoutube /></a>
+</div>
+      
 
       {/* Newsletter Section */}
       <div>
-        <h3 className="text-2xl font-bold mb-4">Newsletter</h3>
-        <p className="text-gray-400 text-sm mb-4">
-          Subscribe to our newsletter to get the latest travel updates and special offers.
+        <h3 className="font-bold text-lg mb-4">Subscribe to Our Newsletter</h3>
+        <p className="text-gray-400 mb-4">
+          Stay updated with our latest offers, travel tips, and exclusive promotions. Sign up for our newsletter.
         </p>
-        <form className="flex">
-          <input
-            type="email"
-            placeholder="Your Email"
-            className="px-4 py-2 text-gray-700 w-full rounded-l-lg"
+        <div className="flex">
+          <input 
+            type="email" 
+            placeholder="Enter your email" 
+            className="px-4 py-2 rounded-l-lg text-gray-700"
           />
-          <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-r-lg hover:bg-blue-700 transition">
+          <button className="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700">
             Subscribe
           </button>
-        </form>
-      </div>
-
-      {/* Contact Section */}
-      <div>
-        <h3 className="text-2xl font-bold mb-4">Contact Us</h3>
-        <p className="text-gray-400 text-sm mb-4">info@tripe.com</p>
-        <p className="text-gray-400 text-sm">+1 (800) 123-4567</p>
-        <p className="text-gray-400 text-sm">Location: 123 Adventure St, Traveler City</p>
-      </div>
-
-      {/* Legal Section */}
-      <div>
-        <h3 className="text-2xl font-bold mb-4">Legal</h3>
-        <ul className="space-y-3">
-          <li><a href="#" className="text-gray-400 hover:text-blue-600 transition">Privacy Policy</a></li>
-          <li><a href="#" className="text-gray-400 hover:text-blue-600 transition">Terms of Service</a></li>
-          <li><a href="#" className="text-gray-400 hover:text-blue-600 transition">Cookies Policy</a></li>
-        </ul>
+        </div>
       </div>
     </div>
 
-    {/* Footer Bottom */}
-    <div className="mt-12 text-center text-gray-400">
-      <p>&copy; {new Date().getFullYear()} TripCo. All rights reserved.</p>
-      <p className="mt-2 text-sm">Designed with ❤️ by TripCo Team</p>
+    {/* Footer Bottom Section */}
+    <div className="mt-12 border-t border-gray-700 pt-6 text-center text-gray-400">
+      <p>&copy; 2025 Tripe. All rights reserved.</p>
     </div>
   </div>
 </footer>
+
 
 
     </div>
