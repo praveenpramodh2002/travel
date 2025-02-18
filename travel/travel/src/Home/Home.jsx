@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Search, MapPin, ArrowRight } from 'lucide-react';
 import { Compass, Hotel, Plane, Camera, Map, Utensils } from 'lucide-react';
 import Image1 from "../assets/travel1.jpeg";
@@ -8,22 +8,66 @@ import Image4 from "../assets/travel4.jpeg";
 import Image5 from "../assets/travel5.jpeg";
 import Image6 from "../assets/travel6.jpeg";
 import Image7 from "../assets/travel7.jpeg";
+import Image8 from "../assets/bali.jpeg";
+import Image9 from "../assets/france.jpeg";
+import Image10 from "../assets/Greece.jpeg";
+import Image11 from "../assets/kytoto.jpeg";
+import Image12 from "../assets/hawai.jpeg";
+import Image13 from "../assets/uae.jpeg";
 import travelVideo from "../assets/video.mp4";
+import backgroundMusic from "../assets/Luke-Bergs-Waesto-Melody-chosic.com_.mp3";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
+import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube, FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 import { motion } from 'framer-motion';
 
 const Home = () => {
+  const [chatOpen, setChatOpen] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.5);
+  const audioRef = useRef(null);
+
+  const togglePlay = () => {
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  const changeVolume = (event) => {
+    const newVolume = event.target.value;
+    setVolume(newVolume);
+    audioRef.current.volume = newVolume;
+  };
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white relative">
+      {/* Background Music */}
+      <audio ref={audioRef} src={backgroundMusic} loop />
+      <div className="fixed bottom-5 left-5 bg-white p-3 rounded-lg shadow-lg flex items-center space-x-3">
+        <button onClick={togglePlay} className="text-blue-600 text-xl">
+          {isPlaying ? <FaPause /> : <FaPlay />}
+        </button>
+        <input 
+          type="range" 
+          min="0" 
+          max="1" 
+          step="0.01" 
+          value={volume} 
+          onChange={changeVolume} 
+          className="w-24"
+        />
+        <FaVolumeUp className="text-blue-600" />
+      </div>
       {/* Navigation */}
       <nav className="flex items-center justify-between p-4 max-w-7xl mx-auto">
         <div className="text-2xl font-bold text-blue-600">Tripe</div>
         <div className="hidden md:flex space-x-6">
           <a href="#" className="text-gray-600">Home</a>
-          <a href="#" className="text-gray-600">Travel</a>
-          <a href="#" className="text-gray-600">Explore</a>
-          <a href="#" className="text-gray-600">Activity</a>
+          <a href="#" className="text-gray-600">location</a>
+          <a href="#" className="text-gray-600">Contact Us</a>
+          <a href="#" className="text-gray-600">Services</a>
         </div>
         <button className="bg-blue-600 text-white px-4 py-2 rounded-lg">Sign up</button>
       </nav>
@@ -140,12 +184,12 @@ const Home = () => {
   <h2 className="text-2xl font-bold mb-6 text-center">Top Travel Locations</h2>
   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
     {[
-      { img: Image1, title: "Santorini, Greece", desc: "Enjoy stunning sunsets, white-washed buildings, and breathtaking sea views." },
-      { img: Image2, title: "Kyoto, Japan", desc: "Experience the serenity of temples, cherry blossoms, and traditional culture." },
-      { img: Image3, title: "Bali, Indonesia", desc: "Immerse yourself in tropical paradise with pristine beaches and vibrant culture." },
-      { img: Image4, title: "Paris, France", desc: "Explore the City of Love, with its iconic Eiffel Tower and charming cafes." },
-      { img: Image5, title: "Maui, Hawaii", desc: "A tropical paradise with breathtaking beaches and volcanic landscapes." },
-      { img: Image6, title: "Dubai, UAE", desc: "A futuristic city known for luxury shopping, ultramodern architecture, and vibrant nightlife." }
+      { img: Image10, title: "Santorini, Greece", desc: "Enjoy stunning sunsets, white-washed buildings, and breathtaking sea views." },
+      { img: Image11, title: "Kyoto, Japan", desc: "Experience the serenity of temples, cherry blossoms, and traditional culture." },
+      { img: Image8, title: "Bali, Indonesia", desc: "Immerse yourself in tropical paradise with pristine beaches and vibrant culture." },
+      { img: Image9, title: "Paris, France", desc: "Explore the City of Love, with its iconic Eiffel Tower and charming cafes." },
+      { img: Image12, title: "Maui, Hawaii", desc: "A tropical paradise with breathtaking beaches and volcanic landscapes." },
+      { img: Image13, title: "Dubai, UAE", desc: "A futuristic city known for luxury shopping, ultramodern architecture, and vibrant nightlife." }
     ].map((location, index) => (
       <motion.div 
         key={index} 
@@ -272,9 +316,9 @@ const Home = () => {
         <h3 className="font-bold text-lg mb-4">Quick Links</h3>
         <ul className="space-y-2">
           <li><a href="#" className="text-gray-400 hover:text-blue-500">Home</a></li>
-          <li><a href="#" className="text-gray-400 hover:text-blue-500">Travel</a></li>
-          <li><a href="#" className="text-gray-400 hover:text-blue-500">Explore</a></li>
-          <li><a href="#" className="text-gray-400 hover:text-blue-500">Activity</a></li>
+          <li><a href="#" className="text-gray-400 hover:text-blue-500">Location</a></li>
+          <li><a href="#" className="text-gray-400 hover:text-blue-500">Contact Us</a></li>
+          <li><a href="#" className="text-gray-400 hover:text-blue-500">Services</a></li>
         </ul>
       </div>
 
@@ -308,7 +352,7 @@ const Home = () => {
 
     {/* Footer Bottom Section */}
     <div className="mt-12 border-t border-gray-700 pt-6 text-center text-gray-400">
-      <p>&copy; 2025 Tripe. All rights reserved.</p>
+      <p>&copy; 2025 Praveen. All rights reserved.</p>
     </div>
   </div>
 </footer>
