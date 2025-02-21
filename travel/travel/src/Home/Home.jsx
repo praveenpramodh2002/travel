@@ -14,11 +14,15 @@ import Image10 from "../assets/Greece.jpeg";
 import Image11 from "../assets/kytoto.jpeg";
 import Image12 from "../assets/hawai.jpeg";
 import Image13 from "../assets/uae.jpeg";
+import Image14 from "../assets/l1.jpeg";
+
 import travelVideo from "../assets/video.mp4";
 import backgroundMusic from "../assets/Luke-Bergs-Waesto-Melody-chosic.com_.mp3";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube, FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 import { motion } from 'framer-motion';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 const Home = () => {
   const [chatOpen, setChatOpen] = useState(false);
@@ -60,16 +64,19 @@ const Home = () => {
         />
         <FaVolumeUp className="text-blue-600" />
       </div>
+
       {/* Navigation */}
-      <nav className="flex items-center justify-between p-4 max-w-7xl mx-auto">
+      <nav className="flex items-center justify-between p-4 max-w-7xl mx-auto animate-slide-down">
         <div className="text-2xl font-bold text-blue-600">Tripe</div>
         <div className="hidden md:flex space-x-6">
-          <a href="#" className="text-gray-600">Home</a>
-          <a href="#" className="text-gray-600">location</a>
-          <a href="#" className="text-gray-600">Contact Us</a>
-          <a href="#" className="text-gray-600">Services</a>
+          <a href="#" className="text-gray-600 transition-all duration-300 hover:text-blue-600 hover:scale-105">Home</a>
+          <a href="#" className="text-gray-600 transition-all duration-300 hover:text-blue-600 hover:scale-105">Location</a>
+          <a href="/c" className="text-gray-600 transition-all duration-300 hover:text-blue-600 hover:scale-105">Contact Us</a>
+          <a href="#" className="text-gray-600 transition-all duration-300 hover:text-blue-600 hover:scale-105">Services</a>
         </div>
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg">Sign up</button>
+        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg transition-all duration-300 hover:bg-blue-700 hover:scale-110">
+          Sign Up
+        </button>
       </nav>
 
       {/* Hero Section with Video */}
@@ -154,66 +161,35 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Sweet Memories Section */}
+      {/* Travel Locations Section */}
       <div className="max-w-7xl mx-auto px-4 my-12">
-        <h2 className="text-2xl font-bold mb-6">Travel to make sweet memories</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="space-y-6">
-            <div className="bg-blue-50 p-6 rounded-lg">
-              <h3 className="font-bold mb-2">Find trips that fit your freedom</h3>
-              <p className="text-gray-600">Discover your next adventure with our curated selection of destinations.</p>
+        <h2 className="text-2xl font-bold mb-6 text-center">Top Travel Locations</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[{
+              img: Image10, title: "Santorini, Greece", desc: "Enjoy stunning sunsets, white-washed buildings, and breathtaking sea views." },
+            {
+              img: Image11, title: "Kyoto, Japan", desc: "Experience the serenity of temples, cherry blossoms, and traditional culture." },
+            {
+              img: Image8, title: "Bali, Indonesia", desc: "Immerse yourself in tropical paradise with pristine beaches and vibrant culture." },
+            {
+              img: Image9, title: "Paris, France", desc: "Explore the City of Love, with its iconic Eiffel Tower and charming cafes." },
+            {
+              img: Image12, title: "Maui, Hawaii", desc: "A tropical paradise with breathtaking beaches and volcanic landscapes." },
+            {
+              img: Image13, title: "Dubai, UAE", desc: "A futuristic city known for luxury shopping, ultramodern architecture, and vibrant nightlife." }
+          ].map((location, index) => (
+            <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <img src={location.img} alt={location.title} className="w-full h-48 object-cover" />
+              <div className="p-6">
+                <h3 className="font-bold text-xl mb-2">{location.title}</h3>
+                <p className="text-gray-600">{location.desc}</p>
+              </div>
             </div>
-            <div className="bg-green-50 p-6 rounded-lg">
-              <h3 className="font-bold mb-2">Get back to nature by travel</h3>
-              <p className="text-gray-600">Experience the beauty of natural wonders around the world.</p>
-            </div>
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-lg">
-              Tell me more
-            </button>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <img src={Image5} alt="Mountain landscape" className="w-full h-48 object-cover rounded-lg" />
-            <img src={Image6} alt="Beach sunset" className="w-full h-48 object-cover rounded-lg" />
-            <img src={Image7} alt="Forest trail" className="w-full h-48 object-cover rounded-lg" />
-            <img src={Image4} alt="City skyline" className="w-full h-48 object-cover rounded-lg" />
-          </div>
+          ))}
         </div>
       </div>
-{/* Travel Locations Section */}
-<div className="max-w-7xl mx-auto px-4 my-12">
-  <h2 className="text-2xl font-bold mb-6 text-center">Top Travel Locations</h2>
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-    {[
-      { img: Image10, title: "Santorini, Greece", desc: "Enjoy stunning sunsets, white-washed buildings, and breathtaking sea views." },
-      { img: Image11, title: "Kyoto, Japan", desc: "Experience the serenity of temples, cherry blossoms, and traditional culture." },
-      { img: Image8, title: "Bali, Indonesia", desc: "Immerse yourself in tropical paradise with pristine beaches and vibrant culture." },
-      { img: Image9, title: "Paris, France", desc: "Explore the City of Love, with its iconic Eiffel Tower and charming cafes." },
-      { img: Image12, title: "Maui, Hawaii", desc: "A tropical paradise with breathtaking beaches and volcanic landscapes." },
-      { img: Image13, title: "Dubai, UAE", desc: "A futuristic city known for luxury shopping, ultramodern architecture, and vibrant nightlife." }
-    ].map((location, index) => (
-      <motion.div 
-        key={index} 
-        className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
-        initial={{ opacity: 0, scale: 0.9 }} 
-        animate={{ opacity: 1, scale: 1 }} 
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-        whileHover={{ scale: 1.05 }}
-      >
-        <img src={location.img} alt={location.title} className="w-full h-40 object-cover rounded-lg mb-4" />
-        <h3 className="text-xl font-semibold mb-2">{location.title}</h3>
-        <p className="text-gray-600">{location.desc}</p>
-        <motion.button 
-          className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          aria-label={`View details about ${location.title}`}
-        >
-          View Details
-        </motion.button>
-      </motion.div>
-    ))}
-  </div>
-</div>
+
+    
       {/* Services Section */}
       <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="text-center mb-12">
@@ -286,6 +262,63 @@ const Home = () => {
         </div>
         
       </div>
+        {/* Map Section */}
+<div className="max-w-7xl mx-auto px-4 my-12">
+  <h2 className="text-2xl font-bold mb-6 text-center">Explore Our Locations on the Map</h2>
+  <MapContainer center={[51.505, -0.09]} zoom={3} className="w-full h-96 rounded-lg shadow-lg">
+    <TileLayer 
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" 
+    />
+    
+    {/* Markers for Locations */}
+    <Marker position={[51.505, -0.09]}>
+      <Popup>
+        London, UK
+      </Popup>
+    </Marker>
+    <Marker position={[48.8566, 2.3522]}>
+      <Popup>
+        Paris, France
+      </Popup>
+    </Marker>
+    <Marker position={[40.7128, -74.0060]}>
+      <Popup>
+        New York, USA
+      </Popup>
+    </Marker>
+    <Marker position={[34.0522, -118.2437]}>
+      <Popup>
+        Los Angeles, USA
+      </Popup>
+    </Marker>
+    <Marker position={[35.6762, 139.6503]}>
+      <Popup>
+        Tokyo, Japan
+      </Popup>
+    </Marker>
+    <Marker position={[48.2082, 16.3738]}>
+      <Popup>
+        Vienna, Austria
+      </Popup>
+    </Marker>
+    <Marker position={[52.3676, 4.9041]}>
+      <Popup>
+        Amsterdam, Netherlands
+      </Popup>
+    </Marker>
+    <Marker position={[41.9028, 12.4964]}>
+      <Popup>
+        Rome, Italy
+      </Popup>
+    </Marker>
+    <Marker position={[51.5074, -0.1278]}>
+      <Popup>
+        London, UK
+      </Popup>
+    </Marker>
+  </MapContainer>
+</div>
+
 {/* Footer CTA */}
 <div className="max-w-5xl mx-auto px-1 my-12">
   <div className="relative rounded-lg overflow-hidden">
@@ -360,6 +393,7 @@ const Home = () => {
 
 
     </div>
+    
   );
 };
 
