@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Search, MapPin, ArrowRight } from 'lucide-react';
 import { Compass, Hotel, Plane, Camera, Map, Utensils } from 'lucide-react';
 import Image1 from "../assets/travel1.jpeg";
@@ -28,6 +28,7 @@ const Home = () => {
   const [chatOpen, setChatOpen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
+  const [darkMode, setDarkMode] = useState(false);
   const audioRef = useRef(null);
 
   const togglePlay = () => {
@@ -45,8 +46,20 @@ const Home = () => {
     audioRef.current.volume = newVolume;
   };
 
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
+
   return (
-    <div className="min-h-screen bg-white relative">
+    <div className={`min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'} relative`}>
       {/* Background Music */}
       <audio ref={audioRef} src={backgroundMusic} loop />
       <div className="fixed bottom-5 left-5 bg-white p-3 rounded-lg shadow-lg flex items-center space-x-3">
@@ -69,14 +82,19 @@ const Home = () => {
       <nav className="flex items-center justify-between p-4 max-w-7xl mx-auto animate-slide-down">
         <div className="text-2xl font-bold text-blue-600">Tripe</div>
         <div className="hidden md:flex space-x-6">
-          <a href="#" className="text-gray-600 transition-all duration-300 hover:text-blue-600 hover:scale-105">Home</a>
-          <a href="#" className="text-gray-600 transition-all duration-300 hover:text-blue-600 hover:scale-105">Location</a>
-          <a href="/c" className="text-gray-600 transition-all duration-300 hover:text-blue-600 hover:scale-105">Contact Us</a>
-          <a href="#" className="text-gray-600 transition-all duration-300 hover:text-blue-600 hover:scale-105">Services</a>
+          <a href="#home" className="text-gray-600 transition-all duration-300 hover:text-blue-600 hover:scale-105">Home</a>
+          <a href="#locations" className="text-gray-600 transition-all duration-300 hover:text-blue-600 hover:scale-105">Location</a>
+          <a href="#contact" className="text-gray-600 transition-all duration-300 hover:text-blue-600 hover:scale-105">Contact Us</a>
+          <a href="#services" className="text-gray-600 transition-all duration-300 hover:text-blue-600 hover:scale-105">Services</a>
         </div>
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg transition-all duration-300 hover:bg-blue-700 hover:scale-110">
-          Sign Up
-        </button>
+        <div className="flex items-center space-x-4">
+          <button onClick={toggleDarkMode} className="bg-blue-600 text-white px-4 py-2 rounded-lg transition-all duration-300 hover:bg-blue-700 hover:scale-110">
+            {darkMode ? 'Light Mode' : 'Dark Mode'}
+          </button>
+          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg transition-all duration-300 hover:bg-blue-700 hover:scale-110">
+            Sign Up
+          </button>
+        </div>
       </nav>
 
       {/* Hero Section with Video */}
@@ -162,7 +180,7 @@ const Home = () => {
       </div>
 
       {/* Travel Locations Section */}
-      <div className="max-w-7xl mx-auto px-4 my-12">
+      <div id="locations" className="max-w-7xl mx-auto px-4 my-12">
         <h2 className="text-2xl font-bold mb-6 text-center">Top Travel Locations</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[{
@@ -178,20 +196,24 @@ const Home = () => {
             {
               img: Image13, title: "Dubai, UAE", desc: "A futuristic city known for luxury shopping, ultramodern architecture, and vibrant nightlife." }
           ].map((location, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden">
+            <motion.div 
+              key={index} 
+              className="bg-white rounded-lg shadow-lg overflow-hidden"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+            >
               <img src={location.img} alt={location.title} className="w-full h-48 object-cover" />
               <div className="p-6">
                 <h3 className="font-bold text-xl mb-2">{location.title}</h3>
                 <p className="text-gray-600">{location.desc}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
 
-    
       {/* Services Section */}
-      <div className="max-w-7xl mx-auto px-4 py-16">
+      <div id="services" className="max-w-7xl mx-auto px-4 py-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Our Services</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
@@ -200,7 +222,11 @@ const Home = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+          <motion.div 
+            className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          >
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 p-3 bg-blue-50 rounded-full">
                 <Plane className="w-8 h-8 text-blue-600" />
@@ -208,9 +234,13 @@ const Home = () => {
               <h3 className="text-xl font-semibold mb-2">Flight Booking</h3>
               <p className="text-gray-600">Find the best deals on flights to your dream destinations worldwide.</p>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+          <motion.div 
+            className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          >
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 p-3 bg-blue-50 rounded-full">
                 <Hotel className="w-8 h-8 text-blue-600" />
@@ -218,9 +248,13 @@ const Home = () => {
               <h3 className="text-xl font-semibold mb-2">Hotel Reservations</h3>
               <p className="text-gray-600">Book comfortable stays at carefully selected hotels and resorts.</p>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+          <motion.div 
+            className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          >
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 p-3 bg-blue-50 rounded-full">
                 <Compass className="w-8 h-8 text-blue-600" />
@@ -228,9 +262,13 @@ const Home = () => {
               <h3 className="text-xl font-semibold mb-2">Tour Packages</h3>
               <p className="text-gray-600">Explore curated tour packages for unforgettable experiences.</p>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+          <motion.div 
+            className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          >
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 p-3 bg-blue-50 rounded-full">
                 <Camera className="w-8 h-8 text-blue-600" />
@@ -238,9 +276,13 @@ const Home = () => {
               <h3 className="text-xl font-semibold mb-2">Photography Tours</h3>
               <p className="text-gray-600">Capture stunning moments with our specialized photography tours.</p>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+          <motion.div 
+            className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          >
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 p-3 bg-blue-50 rounded-full">
                 <Map className="w-8 h-8 text-blue-600" />
@@ -248,9 +290,13 @@ const Home = () => {
               <h3 className="text-xl font-semibold mb-2">Adventure Trips</h3>
               <p className="text-gray-600">Experience thrilling adventures in nature's most beautiful locations.</p>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+          <motion.div 
+            className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          >
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 p-3 bg-blue-50 rounded-full">
                 <Utensils className="w-8 h-8 text-blue-600" />
@@ -258,144 +304,201 @@ const Home = () => {
               <h3 className="text-xl font-semibold mb-2">Culinary Tours</h3>
               <p className="text-gray-600">Taste local cuisines and explore food cultures around the world.</p>
             </div>
-          </div>
+          </motion.div>
         </div>
-        
       </div>
-        {/* Map Section */}
-<div className="max-w-7xl mx-auto px-4 my-12">
-  <h2 className="text-2xl font-bold mb-6 text-center">Explore Our Locations on the Map</h2>
-  <MapContainer center={[51.505, -0.09]} zoom={3} className="w-full h-96 rounded-lg shadow-lg">
-    <TileLayer 
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" 
-    />
-    
-    {/* Markers for Locations */}
-    <Marker position={[51.505, -0.09]}>
-      <Popup>
-        London, UK
-      </Popup>
-    </Marker>
-    <Marker position={[48.8566, 2.3522]}>
-      <Popup>
-        Paris, France
-      </Popup>
-    </Marker>
-    <Marker position={[40.7128, -74.0060]}>
-      <Popup>
-        New York, USA
-      </Popup>
-    </Marker>
-    <Marker position={[34.0522, -118.2437]}>
-      <Popup>
-        Los Angeles, USA
-      </Popup>
-    </Marker>
-    <Marker position={[35.6762, 139.6503]}>
-      <Popup>
-        Tokyo, Japan
-      </Popup>
-    </Marker>
-    <Marker position={[48.2082, 16.3738]}>
-      <Popup>
-        Vienna, Austria
-      </Popup>
-    </Marker>
-    <Marker position={[52.3676, 4.9041]}>
-      <Popup>
-        Amsterdam, Netherlands
-      </Popup>
-    </Marker>
-    <Marker position={[41.9028, 12.4964]}>
-      <Popup>
-        Rome, Italy
-      </Popup>
-    </Marker>
-    <Marker position={[51.5074, -0.1278]}>
-      <Popup>
-        London, UK
-      </Popup>
-    </Marker>
-  </MapContainer>
-</div>
 
-
-
-{/* Footer CTA */}
-<div className="max-w-5xl mx-auto px-1 my-12">
-  <div className="relative rounded-lg overflow-hidden">
-    <img src={Image3} alt="Tropical water" className="w-full h-64 object-cover" />
-    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105">
-        Book Now
-      </button>
-    </div>
+      {/* Map Section */}
+      <div className="max-w-7xl mx-auto px-4 my-12">
+        <h2 className="text-2xl font-bold mb-6 text-center">Explore Our Locations on the Map</h2>
+        <MapContainer center={[51.505, -0.09]} zoom={3} className="w-full h-96 rounded-lg shadow-lg">
+          <TileLayer 
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" 
+          />
+          
+          {/* Markers for Locations */}
+          <Marker position={[51.505, -0.09]}>
+            <Popup>
+              London, UK
+            </Popup>
+          </Marker>
+          <Marker position={[48.8566, 2.3522]}>
+            <Popup>
+              Paris, France
+            </Popup>
+          </Marker>
+          <Marker position={[40.7128, -74.0060]}>
+            <Popup>
+              New York, USA
+            </Popup>
+          </Marker>
+          <Marker position={[34.0522, -118.2437]}>
+            <Popup>
+              Los Angeles, USA
+            </Popup>
+          </Marker>
+          <Marker position={[35.6762, 139.6503]}>
+            <Popup>
+              Tokyo, Japan
+            </Popup>
+          </Marker>
+          <Marker position={[48.2082, 16.3738]}>
+            <Popup>
+              Vienna, Austria
+            </Popup>
+          </Marker>
+          <Marker position={[52.3676, 4.9041]}>
+            <Popup>
+              Amsterdam, Netherlands
+            </Popup>
+          </Marker>
+          <Marker position={[41.9028, 12.4964]}>
+            <Popup>
+              Rome, Italy
+            </Popup>
+          </Marker>
+          <Marker position={[51.5074, -0.1278]}>
+            <Popup>
+              London, UK
+            </Popup>
+          </Marker>
+        </MapContainer>
+      </div>
+{/* Contact Us Section */}
+<div id="contact" className="max-w-7xl mx-auto px-4 py-16">
+  <div className="text-center mb-12">
+    <h2 className="text-3xl font-bold mb-4">Contact Us</h2>
+    <p className="text-gray-600 max-w-2xl mx-auto">
+      Have questions or need assistance? Reach out to us, and we'll be happy to help!
+    </p>
   </div>
-</div>
 
-{/* Advanced Footer */}
-<footer className="bg-gray-800 text-white py-12">
-  <div className="max-w-7xl mx-auto px-4">
-    {/* Footer Top Section */}
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-      {/* About Us Section */}
-      <div>
-        <h3 className="font-bold text-lg mb-4">About Us</h3>
-        <p className="text-gray-400">
-          We are a travel agency dedicated to providing unforgettable experiences around the world. From beautiful landscapes to adventurous activities, we curate the best destinations for you.
-        </p>
-      </div>
-
-      {/* Quick Links Section */}
-      <div>
-        <h3 className="font-bold text-lg mb-4">Quick Links</h3>
-        <ul className="space-y-2">
-          <li><a href="#" className="text-gray-400 hover:text-blue-500">Home</a></li>
-          <li><a href="#" className="text-gray-400 hover:text-blue-500">Location</a></li>
-          <li><a href="#" className="text-gray-400 hover:text-blue-500">Contact Us</a></li>
-          <li><a href="#" className="text-gray-400 hover:text-blue-500">Services</a></li>
-        </ul>
-      </div>
-
-      {/* Social Media Section */}
-      <div className="flex space-x-6">
-  <a href="#" className="text-gray-400 hover:text-blue-500"><FaFacebookF /></a>
-  <a href="#" className="text-gray-400 hover:text-blue-500"><FaTwitter /></a>
-  <a href="#" className="text-gray-400 hover:text-blue-500"><FaInstagram /></a>
-  <a href="#" className="text-gray-400 hover:text-blue-500"><FaYoutube /></a>
-</div>
-      
-
-      {/* Newsletter Section */}
-      <div>
-        <h3 className="font-bold text-lg mb-4">Subscribe to Our Newsletter</h3>
-        <p className="text-gray-400 mb-4">
-          Stay updated with our latest offers, travel tips, and exclusive promotions. Sign up for our newsletter.
-        </p>
-        <div className="flex">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    {/* Contact Form */}
+    <div className="bg-white p-8 rounded-lg shadow-lg">
+      <form>
+        <div className="mb-6">
+          <label htmlFor="name" className="block text-gray-700 text-sm font-medium mb-2">Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            placeholder="Enter your name" 
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="mb-6">
+          <label htmlFor="email" className="block text-gray-700 text-sm font-medium mb-2">Email</label>
           <input 
             type="email" 
+            id="email" 
             placeholder="Enter your email" 
-            className="px-4 py-2 rounded-l-lg text-gray-700"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700">
-            Subscribe
-          </button>
         </div>
-      </div>
+        <div className="mb-6">
+          <label htmlFor="message" className="block text-gray-700 text-sm font-medium mb-2">Message</label>
+          <textarea 
+            id="message" 
+            rows="5" 
+            placeholder="Enter your message" 
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          ></textarea>
+        </div>
+        <button 
+          type="submit" 
+          className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300"
+        >
+          Send Message
+        </button>
+      </form>
     </div>
 
-    {/* Footer Bottom Section */}
-    <div className="mt-12 border-t border-gray-700 pt-6 text-center text-gray-400">
-      <p>&copy; 2025 Praveen. All rights reserved.</p>
+    {/* Contact Information */}
+    <div className="bg-white p-8 rounded-lg shadow-lg">
+      <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
+      <p className="text-gray-600 mb-4">
+        Feel free to reach out to us via email or phone, or visit our office during business hours.
+      </p>
+      <ul className="space-y-4">
+        <li className="flex items-center">
+          <MapPin className="w-6 h-6 text-blue-600 mr-2" />
+          <span className="text-gray-600">123 Travel Street, Wanderlust City, World</span>
+        </li>
+        <li className="flex items-center">
+          <a href="mailto:info@tripe.com" className="text-blue-600 hover:underline">
+            <span className="text-gray-600">Email: </span>info@tripe.com
+          </a>
+        </li>
+        <li className="flex items-center">
+          <a href="tel:+1234567890" className="text-blue-600 hover:underline">
+            <span className="text-gray-600">Phone: </span>+1 (234) 567-890
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
-</footer>
+</div>
+      {/* Footer CTA */}
+      <div className="max-w-5xl mx-auto px-1 my-12">
+        <div className="relative rounded-lg overflow-hidden">
+          <img src={Image3} alt="Tropical water" className="w-full h-64 object-cover" />
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105">
+              Book Now
+            </button>
+          </div>
+        </div>
+      </div>
 
+      {/* Advanced Footer */}
+      <footer className="bg-gray-800 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4">
+          {/* Footer Top Section */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {/* About Us Section */}
+            <div>
+              <h3 className="font-bold text-lg mb-4">About Us</h3>
+              <p className="text-gray-400">
+                We are a travel agency dedicated to providing unforgettable experiences around the world. From beautiful landscapes to adventurous activities, we curate the best destinations for you.
+              </p>
+            </div>
 
+            {/* Quick Links Section */}
+            <div>
+              <h3 className="font-bold text-lg mb-4">Quick Links</h3>
+              <ul className="space-y-2">
+                <li><a href="#home" className="text-gray-400 hover:text-blue-500">Home</a></li>
+                <li><a href="#locations" className="text-gray-400 hover:text-blue-500">Location</a></li>
+                <li><a href="#contact" className="text-gray-400 hover:text-blue-500">Contact Us</a></li>
+                <li><a href="#services" className="text-gray-400 hover:text-blue-500">Services</a></li>
+              </ul>
+            </div>
 
+            {/* Social Media Section */}
+            <div className="flex space-x-6">
+              <a href="#" className="text-gray-400 hover:text-blue-500"><FaFacebookF /></a>
+              <a href="#" className="text-gray-400 hover:text-blue-500"><FaTwitter /></a>
+              <a href="#" className="text-gray-400 hover:text-blue-500"><FaInstagram /></a>
+              <a href="#" className="text-gray-400 hover:text-blue-500"><FaYoutube /></a>
+            </div>
+
+            {/* Newsletter Section */}
+            <div>
+              <h3 className="font-bold text-lg mb-4">Subscribe to Our Newsletter</h3>
+              <p className="text-gray-400 mb-4">
+                Stay updated with our latest offers, travel tips, and exclusive promotions. Sign up for our newsletter.
+              </p>
+             
+            </div>
+          </div>
+
+          {/* Footer Bottom Section */}
+          <div className="mt-12 border-t border-gray-700 pt-6 text-center text-gray-400">
+            <p>&copy; 2025 Praveen. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
-    
   );
 };
 
