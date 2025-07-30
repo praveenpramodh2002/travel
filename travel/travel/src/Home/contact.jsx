@@ -254,45 +254,74 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="py-16 bg-white dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <span className="text-blue-600 dark:text-blue-400 font-medium">OUR SERVICES</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2">Comprehensive Travel Solutions</h2>
-            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-4">
-              Everything you need for a perfect journey, all in one place
-            </p>
-          </div>
+    {/* Services Section */}
+<section id="services" className="py-16 bg-white dark:bg-gray-900">
+  <div className="max-w-7xl mx-auto px-4">
+    <div className="text-center mb-12">
+      <span className="text-blue-600 dark:text-blue-400 font-medium">OUR SERVICES</span>
+      <h2 className="text-3xl md:text-4xl font-bold mt-2">Comprehensive Travel Solutions</h2>
+      <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-4">
+        Everything you need for a perfect journey, all in one place
+      </p>
+    </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { icon: <Plane size={28} />, title: "Flight Booking", desc: "Best deals on flights worldwide with flexible options" },
-              { icon: <Hotel size={28} />, title: "Hotel Reservations", desc: "Curated selection of hotels for every budget" },
-              { icon: <Compass size={28} />, title: "Tour Packages", desc: "Tailored tours with local expert guides" },
-              { icon: <Camera size={28} />, title: "Photography Tours", desc: "Capture stunning moments with professionals" },
-              { icon: <Map size={28} />, title: "Adventure Trips", desc: "Thrilling experiences in nature's beauty" },
-              { icon: <Utensils size={28} />, title: "Culinary Tours", desc: "Taste authentic local cuisines" }
-            ].map((service, index) => (
-              <motion.div 
-                key={index}
-                className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 group"
-                whileHover={{ scale: 1.02 }}
-              >
-                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 text-blue-600 dark:text-blue-400">
-                  {service.icon}
-                </div>
-                <h3 className="text-xl font-bold mb-2">{service.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{service.desc}</p>
-                <button className="mt-4 text-blue-600 dark:text-blue-400 flex items-center group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
-                  Learn more <ChevronRight size={18} className="ml-1" />
-                </button>
-              </motion.div>
-            ))}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {[
+        { 
+          icon: <Plane size={28} />, 
+          title: "Flight Booking", 
+          desc: "Best deals on flights worldwide with flexible options",
+          gradient: "from-blue-500 to-blue-600"
+        },
+        { 
+          icon: <Hotel size={28} />, 
+          title: "Hotel Reservations", 
+          desc: "Curated selection of hotels for every budget",
+          gradient: "from-purple-500 to-purple-600"
+        },
+        { 
+          icon: <Compass size={28} />, 
+          title: "Tour Packages", 
+          desc: "Tailored tours with local expert guides",
+          gradient: "from-green-500 to-green-600"
+        },
+        { 
+          icon: <Camera size={28} />, 
+          title: "Photography Tours", 
+          desc: "Capture stunning moments with professionals",
+          gradient: "from-red-500 to-red-600"
+        },
+        { 
+          icon: <Map size={28} />, 
+          title: "Adventure Trips", 
+          desc: "Thrilling experiences in nature's beauty",
+          gradient: "from-yellow-500 to-yellow-600"
+        },
+        { 
+          icon: <Utensils size={28} />, 
+          title: "Culinary Tours", 
+          desc: "Taste authentic local cuisines",
+          gradient: "from-pink-500 to-pink-600"
+        }
+      ].map((service, index) => (
+        <motion.div 
+          key={index}
+          className={`bg-gradient-to-br ${service.gradient} p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group text-white`}
+          whileHover={{ scale: 1.03 }}
+        >
+          <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center mb-4 group-hover:bg-white/30 transition-colors duration-300">
+            {service.icon}
           </div>
-        </div>
-      </section>
-
+          <h3 className="text-xl font-bold mb-2">{service.title}</h3>
+          <p className="mb-4 opacity-90">{service.desc}</p>
+          <button className="mt-4 text-white/90 hover:text-white flex items-center transition-colors">
+            Learn more <ChevronRight size={18} className="ml-1" />
+          </button>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
       {/* Testimonials */}
       <section className="py-16 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4">
